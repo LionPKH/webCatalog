@@ -1,0 +1,60 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="mb-10">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">
+        {% if category %}{{ category.name }}{% else %}Популярные композиции{% endif %}
+    </h1>
+
+    <!-- Меню категорий -->
+    <div class="flex flex-wrap gap-3 mb-8">
+        <a href="{% url 'product_list' %}"
+           class="px-5 py-2 rounded-full border {% if not category %}bg-green-600 text-white border-green-600{% else %}bg-white text-gray-600 border-gray-200 hover:border-green-400{% endif %} transition shadow-sm">
+            Все популярные
+        </a>
+
+        {% for cat in categories %}
+        <a href="{% url 'product_list_by_category' cat.slug %}"
+           class="px-5 py-2 rounded-full border {% if category.slug == cat.slug %}bg-green-600 text-white border-green-600{% else %}bg-white text-gray-600 border-gray-200 hover:border-green-400{% endif %} transition shadow-sm">
+            {{ cat.name }}
+        </a>
+        {% endfor %}
+    </div>
+
+    <!-- Сетка товаров (Grid) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {% for product in products %}
+        <div class="product-card theme-{{ product.categories.first.style_theme }} rounded-2xl overflow-hidden shadow-lg bg-white border-t-8 flex flex-col h-full">
+            <div class="h-56 overflow-hidden">
+                {% if product.image %}
+                <img src="{{ product.image.url }}"
+                     class="w-full h-full object-cover transition-transform hover:scale-110 duration-500">
+                {% else %}
+                <div class="w-full h-full bg-gray-200"></div>
+                {% endif %}
+            </div>
+
+            <div class="p-5 flex flex-col flex-grow">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">
+                        {{ product.categories.first.name }}
+                    </span>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">{{ product.name }}</h3>
+                <p class="text-gray-500 text-sm mb-4 flex-grow">{{ product.description|truncatewords:10 }}</p>
+
+                <div class="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
+                    <span class="text-xl font-black price">{{ product.price }} ₽</span>
+                    <a href="{% url 'product_detail' product.pk %}"
+                       class="bg-gray-800 text-white px-4 py-2 rounded-lg text-xs hover:bg-black transition text-center">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full py-20 text-center">
+            <p class="text-gray-400 text-lg">В этой категории пока нет товаров.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
