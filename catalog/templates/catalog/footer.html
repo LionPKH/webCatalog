@@ -1,20 +1,77 @@
-<footer class="bg-gray-900 text-gray-300 py-12 mt-auto">
-    <div class="max-w-9xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+<footer id="contact" class="relative mt-24 bg-ink text-stone-300 overflow-hidden">
+    <!-- Орнамент сверху -->
+    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
 
-        <div class="text-center md:text-left">
-            <p class="text-lg font-semibold text-white">DecorStudio</p>
-            <p class="text-sm mt-1">&copy; {% now "Y" %} Ручная работа с душой.</p>
+    <!-- Декоративные элементы -->
+    <div class="absolute inset-0 opacity-30 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-72 h-72 rounded-full bg-tiffany-600/30 blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-gold-600/20 blur-3xl"></div>
+        <!-- Бегущая золотая звёздочка -->
+        <svg class="sparkle" style="top:18%; left:12%; width:14px; height:14px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+        <svg class="sparkle" style="bottom:22%; right:18%; width:18px; height:18px; animation-delay:1s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    </div>
+
+    <!-- Editorial-приглашение -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 text-center">
+        <p class="text-xs uppercase tracking-[0.4em] text-gold-400 font-semibold mb-5">Atelier</p>
+        <h2 class="font-display text-5xl md:text-6xl text-ivory leading-none mb-6">
+            Создадим что-то <em class="accent text-gold-300">особенное</em> вместе
+        </h2>
+        <div class="ornament mt-2 mb-8 max-w-md mx-auto"><span class="diamond"></span></div>
+        <a href="https://t.me/your_account" target="_blank" rel="noopener" class="btn-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.94 4.36L18.86 19.07c-.23 1.04-.85 1.29-1.72.8l-4.76-3.51-2.3 2.21c-.25.25-.47.47-.96.47l.34-4.86 8.85-8c.39-.34-.08-.53-.6-.19L6.78 12.34l-4.7-1.47c-1.02-.32-1.04-1.02.21-1.51L20.7 2.95c.85-.32 1.6.19 1.24 1.41z"/>
+            </svg>
+            Написать в Telegram
+        </a>
+    </div>
+
+    <!-- Сетка -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/5 pt-14">
+        <!-- Бренд -->
+        <div>
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-tiffany-400 to-tiffany-700 grid place-items-center shadow-glow ring-1 ring-gold-300/40">
+                    <svg class="w-5 h-5 text-ivory" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 8l8 14 8-14-8-6z"/></svg>
+                </div>
+                <span class="font-display text-2xl font-bold text-ivory">DecorStudio</span>
+            </div>
+            <p class="text-sm leading-relaxed text-stone-400 max-w-sm">
+                Art-ателье ручных композиций. Создаём декор, который дарит ощущение праздника каждый день.
+            </p>
         </div>
 
-        <div class="flex items-center gap-6">
-            <a href="https://t.me/your_account" target="_blank"
-               class="flex items-center gap-3 bg-[#0088cc] hover:bg-[#00aaff] text-white px-6 py-2.5 rounded-full font-semibold transition-all hover:scale-105 shadow-lg">
+        <!-- Навигация -->
+        <div>
+            <h4 class="text-xs uppercase tracking-[0.3em] text-gold-400 mb-5 font-semibold">Навигация</h4>
+            <ul class="space-y-3 text-sm">
+                <li><a href="{% url 'index' %}" class="hover:text-tiffany-300 transition">Главная</a></li>
+                <li><a href="{% url 'product_list' %}" class="hover:text-tiffany-300 transition">Каталог</a></li>
+                <li><a href="{% url 'product_list' %}?sort=popular" class="hover:text-tiffany-300 transition">Популярные</a></li>
+                <li><a href="{% url 'product_list' %}?sort=newest" class="hover:text-tiffany-300 transition">Новинки</a></li>
+            </ul>
+        </div>
+
+        <!-- Контакты -->
+        <div>
+            <h4 class="text-xs uppercase tracking-[0.3em] text-gold-400 mb-5 font-semibold">Связаться</h4>
+            <p class="text-sm text-stone-400 mb-5 leading-relaxed">
+                Расскажем подробнее и поможем подобрать композицию под ваш интерьер.
+            </p>
+            <a href="https://t.me/your_account" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-3 bg-gradient-to-r from-[#0088cc] to-[#00aaff] hover:brightness-110 text-white px-6 py-3 rounded-full font-semibold transition-all hover:scale-105 shadow-glow">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M21.435 2.58198C20.935 2.06898 20.199 1.90398 19.54 2.16298L2.03 9.00298C1.423 9.24098 1.012 9.78998 0.991 10.454C0.97 11.118 1.343 11.728 1.936 12.016L6.5 14.228L8.682 21.036C8.834 21.51 9.205 21.874 9.68 21.989C9.762 22.009 9.845 22.019 9.927 22.019C10.316 22.019 10.692 21.854 10.957 21.551L13.887 18.203L18.66 21.821C19.006 22.084 19.435 22.219 19.866 22.219C19.993 22.219 20.12 22.21 20.246 22.191C20.767 22.112 21.215 21.802 21.467 21.334L23.967 16.699L23.971 16.693C23.987 16.663 24.001 16.632 24.015 16.601C24.404 15.717 24.168 14.655 23.418 14.032L21.435 2.58198ZM9.907 16.545L9.345 14.735L17.747 6.44498L9.907 16.545Z"/>
+                    <path d="M21.94 4.36L18.86 19.07c-.23 1.04-.85 1.29-1.72.8l-4.76-3.51-2.3 2.21c-.25.25-.47.47-.96.47l.34-4.86 8.85-8c.39-.34-.08-.53-.6-.19L6.78 12.34l-4.7-1.47c-1.02-.32-1.04-1.02.21-1.51L20.7 2.95c.85-.32 1.6.19 1.24 1.41z"/>
                 </svg>
-                <span>Написать в Telegram</span>
+                <span>Telegram</span>
             </a>
         </div>
+    </div>
 
+    <div class="relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-stone-500">
+            <p>&copy; {% now "Y" %} DecorStudio. <span class="text-gold-500">Art</span> &amp; ручная работа.</p>
+            <p>Создано с заботой к деталям 💎</p>
+        </div>
     </div>
 </footer>

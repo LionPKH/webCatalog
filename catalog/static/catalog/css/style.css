@@ -1,66 +1,428 @@
-/* 1. НАСТРОЙКИ ДЛЯ ПРИЖАТИЯ ФУТЕРА */
-/* Tailwind делает это через классы, но для надежности оставим базу здесь */
-html, body {
-    height: 100%;
+/* ============================================================
+   DecorStudio · Art-ателье · глобальные стили
+   Палитра: Tiffany blue + золото + слоновая кость
+   ============================================================ */
+
+:root {
+    --color-ink: #0c1414;
+    --color-ivory: #fbf7ef;
+    --color-cream: #f6efe1;
+    --color-tiffany: #0ABAB5;
+    --color-tiffany-dark: #06797a;
+    --color-tiffany-light: #c8f3ef;
+    --color-gold: #C9A961;
+    --color-gold-dark: #a4853b;
+    --color-gold-light: #f4ecc7;
+    --shadow-soft: 0 10px 40px -15px rgba(10, 50, 50, 0.18);
+    --shadow-glow: 0 25px 70px -25px rgba(10, 186, 181, 0.55);
+    --shadow-gold: 0 25px 70px -25px rgba(201, 169, 97, 0.55);
 }
 
-/* 2. СЕЗОННЫЕ ТЕМЫ (Магия цвета) */
-/* Мы используем !important, чтобы перебить стандартные цвета Tailwind, если нужно */
-
-/* ЗИМА (Winter) */
-.theme-winter {
-    border-top-color: #add8e6 !important;
-    background-color: #f0f8ff !important;
-}
-.theme-winter .price { color: #4682b4; }
-
-/* ВЕСНА (Spring) */
-.theme-spring {
-    border-top-color: #90ee90 !important;
-    background-color: #f5fff5 !important;
-}
-.theme-spring .price { color: #2e8b57; }
-
-/* ОСЕНЬ (Autumn) */
-.theme-autumn {
-    border-top-color: #d2691e !important;
-    background-color: #fffaf5 !important;
-}
-.theme-autumn .price { color: #8b4513; }
-
-/* ЛЕТО (Summer) */
-.theme-summer {
-    border-top-color: #ffdb58 !important;
-    background-color: #fffff0 !important;
-}
-.theme-summer .price { color: #b8860b; }
-
-
-/* 3. НАСТРОЙКИ КАРУСЕЛИ (Swiper) */
-
-/* Делаем стрелки навигации чуть меньше и красивее */
-.swiper-button-next::after,
-.swiper-button-prev::after {
-    font-size: 20px !important;
-    font-weight: bold;
+html { scroll-behavior: smooth; }
+html, body { height: 100%; }
+body {
+    font-feature-settings: "ss01", "cv02", "cv03";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-/* Цвет точек пагинации */
-.swiper-pagination-bullet-active {
-    background: #4caf50 !important;
+/* ============================================================
+   Скроллбар — золотой акцент
+   ============================================================ */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-ivory); }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--color-gold), var(--color-gold-dark));
+    border-radius: 999px;
+    border: 2px solid var(--color-ivory);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-tiffany); }
+
+/* ============================================================
+   Декоративная сетка
+   ============================================================ */
+.grid-pattern {
+    background-image:
+        linear-gradient(to right, rgba(12, 20, 20, 0.5) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(12, 20, 20, 0.5) 1px, transparent 1px);
+    background-size: 80px 80px;
 }
 
-/* Чтобы карточки в карусели были одинаковой высоты */
-.swiper-slide {
-    height: auto !important;
+/* ============================================================
+   Текстовые украшения
+   ============================================================ */
+
+/* Золотая «шиммер»-надпись */
+.text-shimmer {
+    background: linear-gradient(
+        100deg,
+        #a4853b 0%,
+        #f4ecc7 25%,
+        #d6b14a 45%,
+        #f7e8a8 65%,
+        #a4853b 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 4.5s ease-in-out infinite;
 }
 
-/* 4. ДОПОЛНИТЕЛЬНЫЕ ЭФФЕКТЫ */
-.product-card {
+@keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+/* Подчёркивание акцентом */
+.accent-underline { position: relative; display: inline-block; }
+.accent-underline::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-tiffany), var(--color-gold));
+    border-radius: 999px;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.accent-underline.is-visible::after,
+.accent-underline:hover::after { transform: scaleX(1); }
+
+/* Курсивный «акцент» */
+.font-display { font-family: "Cormorant Infant", "Cormorant Garamond", serif; }
+em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
+
+/* ============================================================
+   Сезонные темы — добавлены золотые штрихи
+   ============================================================ */
+.theme-winter { border-top-color: #93c5fd !important; }
+.theme-winter .price { color: #1e40af; }
+.theme-spring { border-top-color: #6fdcd3 !important; }
+.theme-spring .price { color: var(--color-tiffany-dark); }
+.theme-summer { border-top-color: #fcd34d !important; }
+.theme-summer .price { color: #a16207; }
+.theme-autumn { border-top-color: #fdba74 !important; }
+.theme-autumn .price { color: #c2410c; }
+
+.theme-winter-bg { background: linear-gradient(to bottom, #f0f9ff, var(--color-ivory)) !important; }
+.theme-spring-bg { background: linear-gradient(to bottom, #eafbf9, var(--color-ivory)) !important; }
+.theme-summer-bg { background: linear-gradient(to bottom, #fefce8, var(--color-ivory)) !important; }
+.theme-autumn-bg { background: linear-gradient(to bottom, #fff7ed, var(--color-ivory)) !important; }
+
+/* Карточки — со «штрихом» вверху и мягким переходом */
+.product-card { border-top-width: 6px; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.product-card.tilt { transition: transform 0.35s ease, box-shadow 0.5s ease; will-change: transform; }
+
+/* ============================================================
+   Шапка
+   ============================================================ */
+#site-header.header-scrolled > div {
+    background: rgba(251, 247, 239, 0.88);
+    box-shadow: 0 6px 30px -10px rgba(12, 20, 20, 0.18);
+    border-bottom-color: transparent;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    color: #44403c;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    position: relative;
+}
+.nav-link::before {
+    content: '';
+    position: absolute;
+    inset: auto 50% -4px 50%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-tiffany), var(--color-gold));
+    border-radius: 999px;
+    transition: inset 0.3s ease;
+}
+.nav-link:hover { color: var(--color-tiffany-dark); }
+.nav-link:hover::before { inset: auto 12% -4px 12%; }
+
+/* ============================================================
+   Поиск
+   ============================================================ */
+.search-panel {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+}
+.search-panel.search-open { max-height: 220px; opacity: 1; }
+
+/* ============================================================
+   Чипы категорий
+   ============================================================ */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.15rem;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid #eadfce;
+    color: #44403c;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    position: relative;
+}
+.chip:hover {
+    border-color: var(--color-tiffany);
+    color: var(--color-tiffany-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+.chip-active {
+    background: var(--color-ink);
+    border-color: var(--color-gold);
+    color: var(--color-gold-light);
+    box-shadow: var(--shadow-gold);
+}
+.chip-active:hover {
+    background: var(--color-ink);
+    color: #fff;
+}
+
+/* ============================================================
+   Кнопки
+   ============================================================ */
+.btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.75rem;
+    border-radius: 999px;
+    color: var(--color-ink);
+    font-weight: 700;
+    background: linear-gradient(135deg, #f7e8a8, var(--color-gold), #a4853b);
+    background-size: 200% 200%;
+    box-shadow: var(--shadow-gold), inset 0 1px 0 rgba(255,255,255,0.4);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+.btn-gold::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.6) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.7s ease;
+}
+.btn-gold:hover {
+    background-position: 100% 50%;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 30px 70px -25px rgba(201, 169, 97, 0.7);
+}
+.btn-gold:hover::before { transform: translateX(100%); }
+
+.btn-ink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.75rem;
+    border-radius: 999px;
+    color: var(--color-ivory);
+    font-weight: 600;
+    background: var(--color-ink);
+    border: 1px solid rgba(201,169,97,0.35);
     transition: all 0.3s ease;
 }
+.btn-ink:hover {
+    background: #000;
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
 
-/* Мягкое свечение при наведении на сезонную карточку */
-.product-card:hover {
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.75rem;
+    border-radius: 999px;
+    color: var(--color-ink);
+    font-weight: 600;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(12,20,20,0.1);
+    transition: all 0.3s ease;
+}
+.btn-ghost:hover {
+    background: #fff;
+    border-color: var(--color-tiffany);
+    color: var(--color-tiffany-dark);
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   Декоративные элементы
+   ============================================================ */
+
+/* Тонкая золотая разделительная линия */
+.gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    border: 0;
+}
+/* Орнаментальный разделитель с «ромбом» */
+.ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    color: var(--color-gold);
+}
+.ornament::before, .ornament::after {
+    content: '';
+    flex: 1;
+    max-width: 110px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+.ornament .diamond {
+    width: 8px; height: 8px;
+    background: var(--color-gold);
+    transform: rotate(45deg);
+    box-shadow: 0 0 18px rgba(201,169,97,0.6);
+}
+
+/* Бегущая лента */
+.marquee {
+    display: flex;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+    display: flex;
+    flex-shrink: 0;
+    min-width: 100%;
+    align-items: center;
+    gap: 3rem;
+    padding-right: 3rem;
+    will-change: transform;
+}
+
+/* Свечение для значков */
+.glow-dot {
+    position: relative;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--color-tiffany);
+}
+.glow-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 999px;
+    background: var(--color-tiffany);
+    opacity: 0.5;
+    animation: pulse-ring 2.5s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+    0%   { transform: scale(0.7); opacity: 0.5; }
+    100% { transform: scale(2);   opacity: 0;   }
+}
+
+/* «Звёздочки» */
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    color: var(--color-gold);
+    animation: sparkle 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px rgba(201,169,97,0.7));
+}
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0.6) rotate(0deg); }
+    50%      { opacity: 1; transform: scale(1.05) rotate(45deg); }
+}
+
+/* ============================================================
+   Появление при прокрутке
+   ============================================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal-in { opacity: 1; transform: translateY(0); }
+.reveal-in.accent-underline::after { transform: scaleX(1); }
+
+/* Каскад задержек для дочерних карточек */
+.reveal[data-delay="1"] { transition-delay: 0.05s; }
+.reveal[data-delay="2"] { transition-delay: 0.12s; }
+.reveal[data-delay="3"] { transition-delay: 0.2s; }
+.reveal[data-delay="4"] { transition-delay: 0.28s; }
+
+/* ============================================================
+   Swiper
+   ============================================================ */
+.swiper-button-next, .swiper-button-prev {
+    transition: all 0.3s ease;
+    color: var(--color-ink) !important;
+    border: 1px solid var(--color-gold) !important;
+    background: var(--color-ivory) !important;
+}
+.swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 16px !important;
+    font-weight: 800;
+}
+.swiper-button-next:hover, .swiper-button-prev:hover {
+    background: var(--color-ink) !important;
+    color: var(--color-gold) !important;
+    transform: scale(1.05);
+}
+.swiper-pagination-bullet-active { background: var(--color-tiffany) !important; }
+.swiper-slide { height: auto !important; }
+
+/* ============================================================
+   Цена и общее
+   ============================================================ */
+.price {
+    letter-spacing: -0.02em;
+    font-feature-settings: "tnum";
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.45em;
+}
+
+select { background-image: none; }
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    height: 14px;
+    width: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2378716c' d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3E%3C/svg%3E") no-repeat center;
+    cursor: pointer;
+}
+
+/* Меньше движения, если пользователь не любит анимации */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001s !important;
+        transition-duration: 0.001s !important;
+    }
+}
+
+/* Печать */
+@media print {
+    .swiper-button-next, .swiper-button-prev, #scroll-top, #site-header { display: none !important; }
 }

@@ -4,91 +4,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DecorStudio</title>
+    <title>{% block title %}DecorStudio · Art-ателье ручных композиций{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
+
+    <!-- Шрифты: элегантный сериф + чистый гротеск -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=Cormorant+Infant:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'ui-sans-serif', 'system-ui'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        display: ['"Cormorant Infant"', 'serif'],
+                    },
+                    colors: {
+                        // Tiffany blue palette
+                        tiffany: {
+                            50:  '#eafbf9',
+                            100: '#c8f3ef',
+                            200: '#9fe9e3',
+                            300: '#6fdcd3',
+                            400: '#3fcbc0',
+                            500: '#0ABAB5',   // signature
+                            600: '#089b97',
+                            700: '#06797a',
+                            800: '#075d5e',
+                            900: '#054648',
+                        },
+                        // Gold palette
+                        gold: {
+                            50:  '#fbf7e9',
+                            100: '#f4ecc7',
+                            200: '#ebda9a',
+                            300: '#e0c46a',
+                            400: '#d6b14a',
+                            500: '#C9A961',   // signature
+                            600: '#a4853b',
+                            700: '#7f6630',
+                            800: '#5a4a25',
+                            900: '#3c3219',
+                        },
+                        ivory: '#fbf7ef',
+                        cream: '#f6efe1',
+                        ink:   '#0c1414',
+                    },
+                    boxShadow: {
+                        'soft':  '0 10px 40px -15px rgba(10, 50, 50, 0.18)',
+                        'glow':  '0 25px 70px -25px rgba(10, 186, 181, 0.55)',
+                        'gold':  '0 25px 70px -25px rgba(201, 169, 97, 0.55)',
+                        'press': 'inset 0 1px 0 rgba(255,255,255,0.4), 0 12px 30px -12px rgba(12, 20, 20, 0.35)',
+                    },
+                    animation: {
+                        'fade-up':     'fade-up 0.9s ease-out both',
+                        'fade-in':     'fade-in 1s ease-out both',
+                        'float':       'float 6s ease-in-out infinite',
+                        'float-slow':  'float 9s ease-in-out infinite',
+                        'spin-slow':   'spin 30s linear infinite',
+                        'spin-slower': 'spin 60s linear infinite',
+                        'marquee':     'marquee 35s linear infinite',
+                        'marquee-rev': 'marquee-rev 28s linear infinite',
+                        'shimmer':     'shimmer 3s ease-in-out infinite',
+                        'pulse-ring':  'pulse-ring 2.5s ease-out infinite',
+                        'sparkle':     'sparkle 2.6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'fade-up':  { '0%': { opacity: '0', transform: 'translateY(28px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        'fade-in':  { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        'float':    { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+                        'marquee':  { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+                        'marquee-rev': { '0%': { transform: 'translateX(-50%)' }, '100%': { transform: 'translateX(0)' } },
+                        'shimmer':  { '0%, 100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
+                        'pulse-ring':  { '0%': { transform: 'scale(.6)', opacity: '.6' }, '100%': { transform: 'scale(1.6)', opacity: '0' } },
+                        'sparkle':  { '0%, 100%': { opacity: '0', transform: 'scale(0.6)' }, '50%': { opacity: '1', transform: 'scale(1)' } },
+                    },
+                }
+            }
+        }
+    </script>
 
-    <!-- Swiper CSS (для карусели) -->
+    <!-- Swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
-    <!-- Наши старые стили (для тем оформления) -->
+    <!-- Глобальный CSS -->
     <link rel="stylesheet" href="{% static 'catalog/css/style.css' %}">
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50">
+<body class="font-sans flex flex-col min-h-screen bg-ivory text-ink antialiased selection:bg-tiffany-200 selection:text-tiffany-900">
+
+<!-- Декоративные «капли» на фоне -->
+<div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full bg-tiffany-200/40 blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-gold-200/40 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 w-[420px] h-[420px] rounded-full bg-cream blur-3xl opacity-70"></div>
+    <!-- Тонкая сетка -->
+    <div class="absolute inset-0 grid-pattern opacity-[0.06]"></div>
+</div>
+
+<!-- Тонкая «объявительная» лента -->
+<div class="bg-ink text-ivory text-xs">
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 overflow-hidden">
+            <span class="inline-flex items-center gap-1.5 shrink-0 text-gold-300 font-semibold uppercase tracking-[0.25em]">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.568L24 9.748l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.595 0 9.748l8.332-1.593z"/></svg>
+                Новинка
+            </span>
+            <span class="text-stone-300 hidden sm:inline">Весенняя коллекция уже в каталоге · Бесплатная упаковка от 5 000 ₽</span>
+        </div>
+        <div class="flex items-center gap-3 text-stone-400">
+            <a href="#contact" class="hover:text-ivory transition">Контакты</a>
+            <span class="opacity-30">·</span>
+            <a href="https://t.me/your_account" target="_blank" rel="noopener" class="hover:text-ivory transition">Telegram</a>
+        </div>
+    </div>
+</div>
 
 {% include 'catalog/header.html' %}
 
-<!-- Контент теперь будет во весь экран, если нужно -->
 <main class="flex-grow">
-    <div class="container mx-auto px-4 py-8">
-        {% block content %}
-        {% endblock %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+        {% block content %}{% endblock %}
     </div>
 </main>
 
 {% include 'catalog/footer.html' %}
 
-<!-- Swiper JS (для работы карусели) -->
+<!-- Кнопка «наверх» -->
+<button id="scroll-top"
+        aria-label="Наверх"
+        class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-ink text-gold-300 shadow-glow opacity-0 invisible translate-y-2 transition-all duration-300 hover:text-gold-400 hover:scale-110 flex items-center justify-center ring-1 ring-gold-500/30">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+</button>
+
+<!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<!-- Инициализация карусели -->
 <script>
-    // Фоновый слайдер
-    const heroSwiper = new Swiper('.hero-swiper', {
-        loop: true,
-        effect: 'fade', // Плавное перетекание фото
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-        },
-        speed: 2000, // Скорость самой анимации затухания
-    });
+    // ----- Карусели -----
+    if (document.querySelector('.hero-swiper')) {
+        new Swiper('.hero-swiper', {
+            loop: true,
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            autoplay: { delay: 5200, disableOnInteraction: false },
+            speed: 2200,
+        });
+    }
+    if (document.querySelector('.product-swiper')) {
+        new Swiper('.product-swiper', {
+            slidesPerView: 1.1,
+            spaceBetween: 20,
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            breakpoints: {
+                640:  { slidesPerView: 2,  spaceBetween: 20 },
+                1024: { slidesPerView: 3,  spaceBetween: 24 },
+                1280: { slidesPerView: 4,  spaceBetween: 28 },
+            }
+        });
+    }
 
-    // Карусель товаров
-    const productSwiper = new Swiper('.product-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 25,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-            640: {slidesPerView: 2},
-            1024: {slidesPerView: 3},
-            1280: {slidesPerView: 4}, // Больше товаров на широком экране
-        }
-    });
-
-    // Логика мобильного меню
+    // ----- Мобильное меню -----
     const btn = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
     const hamburgerIcon = document.getElementById('hamburger-icon');
     const closeIcon = document.getElementById('close-icon');
+    if (btn && menu) {
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            hamburgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+            document.body.style.overflow = menu.classList.contains('hidden') ? 'auto' : 'hidden';
+        });
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    }
 
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden'); // Показать/скрыть меню
-        hamburgerIcon.classList.toggle('hidden'); // Переключить иконку на крестик
-        closeIcon.classList.toggle('hidden');
+    // ----- Раскрывающийся поиск -----
+    const searchToggle = document.getElementById('search-toggle');
+    const searchPanel  = document.getElementById('search-panel');
+    const searchInput  = document.getElementById('search-input');
+    if (searchToggle && searchPanel) {
+        searchToggle.addEventListener('click', () => {
+            searchPanel.classList.toggle('search-open');
+            if (searchPanel.classList.contains('search-open')) {
+                setTimeout(() => searchInput && searchInput.focus(), 200);
+            }
+        });
+    }
 
-        // Блокируем прокрутку страницы, когда меню открыто
-        if (!menu.classList.contains('hidden')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
+    // ----- Кнопка «Наверх» + липкая шапка -----
+    const scrollBtn  = document.getElementById('scroll-top');
+    const siteHeader = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+        if (scrollBtn) {
+            if (window.scrollY > 400) scrollBtn.classList.remove('opacity-0', 'invisible', 'translate-y-2');
+            else scrollBtn.classList.add('opacity-0', 'invisible', 'translate-y-2');
+        }
+        if (siteHeader) {
+            if (window.scrollY > 20) siteHeader.classList.add('header-scrolled');
+            else siteHeader.classList.remove('header-scrolled');
         }
     });
+    if (scrollBtn) scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // Закрывать меню при клике на ссылку (важно для переходов внутри страницы)
-    const menuLinks = menu.querySelectorAll('a');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            menu.classList.add('hidden');
-            hamburgerIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
-            document.body.style.overflow = 'auto';
+    // ----- Плавное появление -----
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-in');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+
+    // ----- Лёгкий параллакс для декораций -----
+    const parallaxEls = document.querySelectorAll('[data-parallax]');
+    if (parallaxEls.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            parallaxEls.forEach(el => {
+                const speed = parseFloat(el.dataset.parallax) || 0.15;
+                el.style.transform = `translateY(${y * speed}px)`;
+            });
+        }, { passive: true });
+    }
+
+    // ----- 3D-наклон карточек товара (tilt) -----
+    if (!matchMedia('(pointer: coarse)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.tilt').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const r = card.getBoundingClientRect();
+                const x = (e.clientX - r.left) / r.width - 0.5;
+                const y = (e.clientY - r.top) / r.height - 0.5;
+                card.style.transform = `perspective(900px) rotateX(${ -y * 5 }deg) rotateY(${ x * 6 }deg) translateY(-4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
         });
-    });
+    }
 </script>
+{% block extra_js %}{% endblock %}
 </body>
 </html>
