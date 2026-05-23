@@ -1,0 +1,65 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="min-h-screen py-12">
+    <!-- Кнопка "Назад" -->
+    <a href="javascript:history.back()" class="inline-flex items-center text-gray-500 hover:text-green-600 mb-8 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Назад к списку
+    </a>
+
+    <!-- ОСНОВНОЙ БЛОК ТОВАРА -->
+    <div class="product-card theme-{{ product.categories.first.style_theme }} rounded-[3rem] overflow-hidden shadow-2xl bg-white border-t-[12px] flex flex-col md:flex-row">
+        
+        <!-- Левая часть: Большое фото -->
+        <div class="md:w-1/2 h-[400px] md:h-[600px] overflow-hidden">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="w-full h-full object-cover" alt="{{ product.name }}">
+            {% else %}
+                <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300 italic text-xl">Нет изображения</div>
+            {% endif %}
+        </div>
+
+        <!-- Правая часть: Описание и детали -->
+        <div class="md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
+            <!-- Категории -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                {% for cat in product.categories.all %}
+                    <span class="px-4 py-1.5 rounded-full bg-black/5 text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                        {{ cat.name }}
+                    </span>
+                {% endfor %}
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                {{ product.name }}
+            </h1>
+
+            <p class="text-gray-600 text-lg leading-relaxed mb-10">
+                {{ product.description }}
+            </p>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-8 pt-8 border-t border-black/5">
+                <!-- Цена -->
+                <div>
+                    <span class="block text-gray-400 text-sm uppercase font-bold mb-1">Стоимость</span>
+                    <span class="text-4xl font-black price">{{ product.price }} ₽</span>
+                </div>
+
+                <!-- Кнопка заказа (связь в ТГ) -->
+                <a href="/" target="_blank"
+                   class="bg-gray-900 text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-xl hover:bg-black hover:scale-105 transition-all text-center">
+                    Заказать работу
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Немного магии: красим фон всей страницы (body) через скрипт -->
+<script>
+    document.body.className = "bg-gray-50 theme-{{ product.categories.first.style_theme }} transition-colors duration-1000";
+</script>
+{% endblock %}

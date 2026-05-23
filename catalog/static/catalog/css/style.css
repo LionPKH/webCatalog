@@ -1,0 +1,66 @@
+/* 1. НАСТРОЙКИ ДЛЯ ПРИЖАТИЯ ФУТЕРА */
+/* Tailwind делает это через классы, но для надежности оставим базу здесь */
+html, body {
+    height: 100%;
+}
+
+/* 2. СЕЗОННЫЕ ТЕМЫ (Магия цвета) */
+/* Мы используем !important, чтобы перебить стандартные цвета Tailwind, если нужно */
+
+/* ЗИМА (Winter) */
+.theme-winter {
+    border-top-color: #add8e6 !important;
+    background-color: #f0f8ff !important;
+}
+.theme-winter .price { color: #4682b4; }
+
+/* ВЕСНА (Spring) */
+.theme-spring {
+    border-top-color: #90ee90 !important;
+    background-color: #f5fff5 !important;
+}
+.theme-spring .price { color: #2e8b57; }
+
+/* ОСЕНЬ (Autumn) */
+.theme-autumn {
+    border-top-color: #d2691e !important;
+    background-color: #fffaf5 !important;
+}
+.theme-autumn .price { color: #8b4513; }
+
+/* ЛЕТО (Summer) */
+.theme-summer {
+    border-top-color: #ffdb58 !important;
+    background-color: #fffff0 !important;
+}
+.theme-summer .price { color: #b8860b; }
+
+
+/* 3. НАСТРОЙКИ КАРУСЕЛИ (Swiper) */
+
+/* Делаем стрелки навигации чуть меньше и красивее */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+/* Цвет точек пагинации */
+.swiper-pagination-bullet-active {
+    background: #4caf50 !important;
+}
+
+/* Чтобы карточки в карусели были одинаковой высоты */
+.swiper-slide {
+    height: auto !important;
+}
+
+/* 4. ДОПОЛНИТЕЛЬНЫЕ ЭФФЕКТЫ */
+.product-card {
+    transition: all 0.3s ease;
+}
+
+/* Мягкое свечение при наведении на сезонную карточку */
+.product-card:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}

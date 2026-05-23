@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DecorStudio</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Swiper CSS (для карусели) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <!-- Наши старые стили (для тем оформления) -->
+    <link rel="stylesheet" href="{% static 'catalog/css/style.css' %}">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+
+{% include 'catalog/header.html' %}
+
+<!-- Контент теперь будет во весь экран, если нужно -->
+<main class="flex-grow">
+    <div class="container mx-auto px-4 py-8">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+
+{% include 'catalog/footer.html' %}
+
+<!-- Swiper JS (для работы карусели) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Инициализация карусели -->
+<script>
+    // Фоновый слайдер
+    const heroSwiper = new Swiper('.hero-swiper', {
+        loop: true,
+        effect: 'fade', // Плавное перетекание фото
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        speed: 2000, // Скорость самой анимации затухания
+    });
+
+    // Карусель товаров
+    const productSwiper = new Swiper('.product-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 25,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            640: {slidesPerView: 2},
+            1024: {slidesPerView: 3},
+            1280: {slidesPerView: 4}, // Больше товаров на широком экране
+        }
+    });
+
+    // Логика мобильного меню
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden'); // Показать/скрыть меню
+        hamburgerIcon.classList.toggle('hidden'); // Переключить иконку на крестик
+        closeIcon.classList.toggle('hidden');
+
+        // Блокируем прокрутку страницы, когда меню открыто
+        if (!menu.classList.contains('hidden')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Закрывать меню при клике на ссылку (важно для переходов внутри страницы)
+    const menuLinks = menu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.add('hidden');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+    });
+</script>
+</body>
+</html>

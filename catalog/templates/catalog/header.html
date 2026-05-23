@@ -1,0 +1,38 @@
+<header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-9xl mx-auto px-4 py-4 flex justify-between items-center">
+
+        <!-- Логотип -->
+        <a href="{% url 'index' %}" class="flex items-center gap-3 group z-50">
+            <div class="w-10 h-10 bg-green-500 rounded-full group-hover:rotate-12 transition-transform"></div>
+            <span class="text-2xl font-bold text-gray-800 tracking-tight">DecorStudio</span>
+        </a>
+
+        <!-- ДЕСКТОПНОЕ МЕНЮ (Видно от md: и выше) -->
+        <nav class="hidden md:block">
+            <ul class="flex gap-8 items-center">
+                <li><a href="{% url 'index' %}" class="text-gray-600 hover:text-green-600 font-medium transition">Главная</a></li>
+                <li><a href="{% url 'product_list' %}" class="text-gray-600 hover:text-green-600 font-medium transition">Каталог</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-green-600 font-medium transition">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <!-- КНОПКА БУРГЕР (Видна только на мобильных) -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none z-50">
+            <svg id="hamburger-icon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+            <svg id="close-icon" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- МОБИЛЬНОЕ МЕНЮ (Выезжает сверху) -->
+    <div id="mobile-menu" class="hidden absolute top-0 left-0 w-full bg-white shadow-xl z-40 border-b border-gray-100 pt-20 pb-10 px-6 transition-all duration-300">
+        <ul class="flex flex-col gap-6 text-center">
+            <li><a href="{% url 'index' %}" class="block text-xl font-bold text-gray-800 hover:text-green-600">Главная</a></li>
+            <li><a href="{% url 'product_list' %}" class="block text-xl font-bold text-gray-800 hover:text-green-600">Каталог</a></li>
+            <li><a href="#" class="block text-xl font-bold text-gray-800 hover:text-green-600">Контакты</a></li>
+        </ul>
+    </div>
+</header>
