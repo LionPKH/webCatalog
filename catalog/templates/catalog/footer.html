@@ -1,77 +1,146 @@
 <footer id="contact" class="relative mt-24 bg-ink text-stone-300 overflow-hidden">
-    <!-- Орнамент сверху -->
+    <!-- Тонкая золотая нить сверху -->
     <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
 
-    <!-- Декоративные элементы -->
-    <div class="absolute inset-0 opacity-30 pointer-events-none">
-        <div class="absolute top-0 left-1/4 w-72 h-72 rounded-full bg-tiffany-600/30 blur-3xl"></div>
-        <div class="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-gold-600/20 blur-3xl"></div>
-        <!-- Бегущая золотая звёздочка -->
-        <svg class="sparkle" style="top:18%; left:12%; width:14px; height:14px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
-        <svg class="sparkle" style="bottom:22%; right:18%; width:18px; height:18px; animation-delay:1s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg>
+    <!-- Мягкие пятна -->
+    <div class="absolute inset-0 opacity-25 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-80 h-80 rounded-full bg-gold-700/30 blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-gold-600/15 blur-3xl"></div>
     </div>
 
     <!-- Editorial-приглашение -->
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 text-center">
-        <p class="text-xs uppercase tracking-[0.4em] text-gold-400 font-semibold mb-5">Atelier</p>
+        <p class="text-[11px] uppercase tracking-[0.45em] text-gold-400 font-semibold mb-5">Свяжитесь с нами</p>
         <h2 class="font-display text-5xl md:text-6xl text-ivory leading-none mb-6">
             Создадим что-то <em class="accent text-gold-300">особенное</em> вместе
         </h2>
         <div class="ornament mt-2 mb-8 max-w-md mx-auto"><span class="diamond"></span></div>
-        <a href="https://t.me/your_account" target="_blank" rel="noopener" class="btn-gold">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M21.94 4.36L18.86 19.07c-.23 1.04-.85 1.29-1.72.8l-4.76-3.51-2.3 2.21c-.25.25-.47.47-.96.47l.34-4.86 8.85-8c.39-.34-.08-.53-.6-.19L6.78 12.34l-4.7-1.47c-1.02-.32-1.04-1.02.21-1.51L20.7 2.95c.85-.32 1.6.19 1.24 1.41z"/>
-            </svg>
-            Написать в Telegram
-        </a>
+        <p class="font-serif italic text-stone-300 text-lg max-w-xl mx-auto">
+            Расскажите о вашем интерьере или поводе — подберём композицию или соберём индивидуальный заказ.
+        </p>
     </div>
 
-    <!-- Сетка -->
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/5 pt-14">
-        <!-- Бренд -->
-        <div>
-            <div class="flex items-center gap-3 mb-5">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-tiffany-400 to-tiffany-700 grid place-items-center shadow-glow ring-1 ring-gold-300/40">
-                    <svg class="w-5 h-5 text-ivory" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 8l8 14 8-14-8-6z"/></svg>
+    <!-- КОНТАКТНЫЕ КАРТОЧКИ -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Телефон -->
+            <a href="tel:+79991234567" class="group flex items-center gap-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-gold-500/25 hover:border-gold-400 px-5 py-4 transition-all">
+                <div class="w-11 h-11 rounded-full bg-ink ring-1 ring-gold-500/50 grid place-items-center text-gold-300 group-hover:text-gold-100 transition shrink-0">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
                 </div>
-                <span class="font-display text-2xl font-bold text-ivory">DecorStudio</span>
+                <div class="leading-tight min-w-0">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold-400 font-semibold mb-1">Телефон</p>
+                    <p class="text-ivory text-base font-serif">+7 (999) 123-45-67</p>
+                </div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:hello@decorstudio.ru" class="group flex items-center gap-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-gold-500/25 hover:border-gold-400 px-5 py-4 transition-all">
+                <div class="w-11 h-11 rounded-full bg-ink ring-1 ring-gold-500/50 grid place-items-center text-gold-300 group-hover:text-gold-100 transition shrink-0">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <polyline points="22 6 12 13 2 6"/>
+                    </svg>
+                </div>
+                <div class="leading-tight min-w-0">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold-400 font-semibold mb-1">Email</p>
+                    <p class="text-ivory text-base font-serif truncate">hello@decorstudio.ru</p>
+                </div>
+            </a>
+
+            <!-- Часы -->
+            <div class="flex items-center gap-4 rounded-2xl bg-white/[0.03] border border-gold-500/25 px-5 py-4">
+                <div class="w-11 h-11 rounded-full bg-ink ring-1 ring-gold-500/50 grid place-items-center text-gold-300 shrink-0">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <div class="leading-tight">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold-400 font-semibold mb-1">Работаем</p>
+                    <p class="text-ivory text-base font-serif">Ежедневно · 11:00 – 19:00</p>
+                </div>
             </div>
-            <p class="text-sm leading-relaxed text-stone-400 max-w-sm">
-                Art-ателье ручных композиций. Создаём декор, который дарит ощущение праздника каждый день.
-            </p>
         </div>
 
-        <!-- Навигация -->
-        <div>
-            <h4 class="text-xs uppercase tracking-[0.3em] text-gold-400 mb-5 font-semibold">Навигация</h4>
-            <ul class="space-y-3 text-sm">
-                <li><a href="{% url 'index' %}" class="hover:text-tiffany-300 transition">Главная</a></li>
-                <li><a href="{% url 'product_list' %}" class="hover:text-tiffany-300 transition">Каталог</a></li>
-                <li><a href="{% url 'product_list' %}?sort=popular" class="hover:text-tiffany-300 transition">Популярные</a></li>
-                <li><a href="{% url 'product_list' %}?sort=newest" class="hover:text-tiffany-300 transition">Новинки</a></li>
-            </ul>
-        </div>
-
-        <!-- Контакты -->
-        <div>
-            <h4 class="text-xs uppercase tracking-[0.3em] text-gold-400 mb-5 font-semibold">Связаться</h4>
-            <p class="text-sm text-stone-400 mb-5 leading-relaxed">
-                Расскажем подробнее и поможем подобрать композицию под ваш интерьер.
-            </p>
+        <!-- СОЦСЕТИ -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <!-- Telegram -->
             <a href="https://t.me/your_account" target="_blank" rel="noopener"
-               class="inline-flex items-center gap-3 bg-gradient-to-r from-[#0088cc] to-[#00aaff] hover:brightness-110 text-white px-6 py-3 rounded-full font-semibold transition-all hover:scale-105 shadow-glow">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+               aria-label="Telegram"
+               class="group inline-flex items-center gap-3 px-5 py-3 rounded-full border border-gold-500/30 hover:border-gold-400 hover:bg-white/[0.05] text-gold-300 hover:text-gold-100 transition">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M21.94 4.36L18.86 19.07c-.23 1.04-.85 1.29-1.72.8l-4.76-3.51-2.3 2.21c-.25.25-.47.47-.96.47l.34-4.86 8.85-8c.39-.34-.08-.53-.6-.19L6.78 12.34l-4.7-1.47c-1.02-.32-1.04-1.02.21-1.51L20.7 2.95c.85-.32 1.6.19 1.24 1.41z"/>
                 </svg>
-                <span>Telegram</span>
+                <span class="text-[11px] uppercase tracking-[0.25em] font-semibold">Telegram</span>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/79991234567" target="_blank" rel="noopener"
+               aria-label="WhatsApp"
+               class="group inline-flex items-center gap-3 px-5 py-3 rounded-full border border-gold-500/30 hover:border-gold-400 hover:bg-white/[0.05] text-gold-300 hover:text-gold-100 transition">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.81 11.81 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+                </svg>
+                <span class="text-[11px] uppercase tracking-[0.25em] font-semibold">WhatsApp</span>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://instagram.com/your_account" target="_blank" rel="noopener"
+               aria-label="Instagram"
+               class="group inline-flex items-center gap-3 px-5 py-3 rounded-full border border-gold-500/30 hover:border-gold-400 hover:bg-white/[0.05] text-gold-300 hover:text-gold-100 transition">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+                <span class="text-[11px] uppercase tracking-[0.25em] font-semibold">Instagram</span>
+            </a>
+
+            <!-- VK -->
+            <a href="https://vk.com/your_account" target="_blank" rel="noopener"
+               aria-label="ВКонтакте"
+               class="group inline-flex items-center gap-3 px-5 py-3 rounded-full border border-gold-500/30 hover:border-gold-400 hover:bg-white/[0.05] text-gold-300 hover:text-gold-100 transition">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21.547 7h-3.29a.743.743 0 0 0-.655.392c-.85 1.49-1.95 3.41-2.84 4.86-.27.43-.95.15-.95-.36V7.59c0-.33-.27-.59-.6-.59h-4.36c-.24 0-.36.27-.21.46.34.43.7 1.07.7 2.32 0 1.43-.06 4.17-.06 4.17S8.21 14.7 5.5 8.21A.59.59 0 0 0 4.95 7.8H2.59a.59.59 0 0 0-.56.79C3.81 13.5 7.7 19 12.94 19h.95c.33 0 .6-.27.6-.6v-2.27c0-.34.4-.51.65-.28.78.74 2.18 2.16 2.66 2.74.21.25.52.39.85.39h2.85c1.04 0 1.31-1.13.46-1.81-1.27-1.02-2.5-2.18-3.06-2.86-.34-.41-.31-.99.06-1.39.51-.56 1.36-1.49 2.05-2.34 1.04-1.31 1.46-1.93 1.65-2.34.18-.41-.18-.79-.61-.79z"/>
+                </svg>
+                <span class="text-[11px] uppercase tracking-[0.25em] font-semibold">ВКонтакте</span>
             </a>
         </div>
     </div>
 
-    <div class="relative border-t border-white/5">
+    <!-- ИНФО + НАВИГАЦИЯ -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-gold-700/20 pt-14">
+        <!-- Бренд -->
+        <div>
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-11 h-11 rounded-full bg-ivory/5 ring-1 ring-gold-500/50 grid place-items-center">
+                    <span class="font-display text-xl text-shimmer leading-none">D</span>
+                </div>
+                <span class="font-display text-2xl font-bold text-ivory">DecorStudio</span>
+            </div>
+            <p class="text-sm leading-relaxed text-stone-400 max-w-md font-serif italic">
+                Art-ателье ручных композиций. Создаём декор, который дарит ощущение праздника каждый день — сдержанная роскошь в каждой детали.
+            </p>
+        </div>
+
+        <!-- Навигация -->
+        <div class="md:text-right">
+            <h4 class="text-[11px] uppercase tracking-[0.35em] text-gold-400 mb-5 font-semibold">Навигация</h4>
+            <ul class="space-y-3 text-sm">
+                <li><a href="{% url 'index' %}" class="hover:text-gold-300 transition">Главная</a></li>
+                <li><a href="{% url 'product_list' %}" class="hover:text-gold-300 transition">Каталог</a></li>
+                <li><a href="#contact" class="hover:text-gold-300 transition">Связаться</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="relative border-t border-gold-700/15">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-stone-500">
-            <p>&copy; {% now "Y" %} DecorStudio. <span class="text-gold-500">Art</span> &amp; ручная работа.</p>
-            <p>Создано с заботой к деталям 💎</p>
+            <p>DecorStudio · <span class="text-gold-500">Art</span> &amp; ручная работа</p>
+            <p class="font-serif italic">Сдержанная роскошь в каждой детали</p>
         </div>
     </div>
 </footer>

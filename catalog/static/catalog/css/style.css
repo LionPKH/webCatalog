@@ -1,33 +1,39 @@
 /* ============================================================
    DecorStudio · Art-ателье · глобальные стили
-   Палитра: Tiffany blue + золото + слоновая кость
+   Палитра: золото + чёрный графит + слоновая кость
+   Принцип: сдержанная роскошь, тонкие штрихи, ничего лишнего
    ============================================================ */
 
 :root {
-    --color-ink: #0c1414;
-    --color-ivory: #fbf7ef;
-    --color-cream: #f6efe1;
-    --color-tiffany: #0ABAB5;
-    --color-tiffany-dark: #06797a;
-    --color-tiffany-light: #c8f3ef;
-    --color-gold: #C9A961;
-    --color-gold-dark: #a4853b;
-    --color-gold-light: #f4ecc7;
-    --shadow-soft: 0 10px 40px -15px rgba(10, 50, 50, 0.18);
-    --shadow-glow: 0 25px 70px -25px rgba(10, 186, 181, 0.55);
-    --shadow-gold: 0 25px 70px -25px rgba(201, 169, 97, 0.55);
+    --color-ink:        #0c100f;
+    --color-ink-soft:   #1a201e;
+    --color-ivory:      #faf6ec;
+    --color-cream:      #f1e8d2;
+    --color-cream-warm: #ece0c2;
+
+    --color-gold:        #C9A961;
+    --color-gold-dark:   #8a6f2e;
+    --color-gold-deep:   #6b5520;
+    --color-gold-light:  #e8d599;
+    --color-gold-soft:   #f3e7c0;
+
+    --shadow-soft:  0 12px 38px -18px rgba(20, 20, 10, 0.22);
+    --shadow-gold:  0 24px 70px -28px rgba(138, 111, 46, 0.55);
+    --shadow-deep:  0 30px 80px -30px rgba(12, 16, 15, 0.55);
+    --shadow-press: inset 0 1px 0 rgba(255,255,255,0.18), 0 14px 30px -12px rgba(12, 16, 15, 0.35);
 }
 
 html { scroll-behavior: smooth; }
 html, body { height: 100%; }
 body {
+    background: var(--color-ivory);
     font-feature-settings: "ss01", "cv02", "cv03";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
 
 /* ============================================================
-   Скроллбар — золотой акцент
+   Скроллбар — графит-золото
    ============================================================ */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--color-ivory); }
@@ -36,116 +42,112 @@ body {
     border-radius: 999px;
     border: 2px solid var(--color-ivory);
 }
-::-webkit-scrollbar-thumb:hover { background: var(--color-tiffany); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold-deep); }
 
 /* ============================================================
    Декоративная сетка
    ============================================================ */
 .grid-pattern {
     background-image:
-        linear-gradient(to right, rgba(12, 20, 20, 0.5) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(12, 20, 20, 0.5) 1px, transparent 1px);
-    background-size: 80px 80px;
+        linear-gradient(to right, rgba(12, 16, 15, 0.5) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(12, 16, 15, 0.5) 1px, transparent 1px);
+    background-size: 90px 90px;
 }
 
 /* ============================================================
-   Текстовые украшения
+   Типографика-украшения
    ============================================================ */
 
-/* Золотая «шиммер»-надпись */
+/* Золотая «шиммер»-надпись — спокойная, без вспышек */
 .text-shimmer {
     background: linear-gradient(
         100deg,
-        #a4853b 0%,
-        #f4ecc7 25%,
-        #d6b14a 45%,
-        #f7e8a8 65%,
-        #a4853b 100%
+        #8a6f2e 0%,
+        #e8d599 40%,
+        #d6b14a 50%,
+        #e8d599 60%,
+        #8a6f2e 100%
     );
-    background-size: 200% 100%;
+    background-size: 220% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: shimmer 4.5s ease-in-out infinite;
+    animation: shimmer 6s ease-in-out infinite;
 }
-
 @keyframes shimmer {
     0%, 100% { background-position: 0% 50%; }
     50%      { background-position: 100% 50%; }
 }
 
-/* Подчёркивание акцентом */
+/* Тонкое подчёркивание акцентом */
 .accent-underline { position: relative; display: inline-block; }
 .accent-underline::after {
     content: '';
     position: absolute;
     left: 0; right: 0; bottom: -6px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-tiffany), var(--color-gold));
-    border-radius: 999px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
     transform-origin: left;
     transform: scaleX(0);
-    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .accent-underline.is-visible::after,
 .accent-underline:hover::after { transform: scaleX(1); }
 
-/* Курсивный «акцент» */
 .font-display { font-family: "Cormorant Infant", "Cormorant Garamond", serif; }
 em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
 
 /* ============================================================
-   Сезонные темы — добавлены золотые штрихи
+   Сезонные темы — золото с цветным штрихом
    ============================================================ */
-.theme-winter { border-top-color: #93c5fd !important; }
-.theme-winter .price { color: #1e40af; }
-.theme-spring { border-top-color: #6fdcd3 !important; }
-.theme-spring .price { color: var(--color-tiffany-dark); }
-.theme-summer { border-top-color: #fcd34d !important; }
-.theme-summer .price { color: #a16207; }
-.theme-autumn { border-top-color: #fdba74 !important; }
-.theme-autumn .price { color: #c2410c; }
+.product-card { border-top-width: 4px; border-top-color: var(--color-gold) !important; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.theme-winter { border-top-color: #b6c9d6 !important; }
+.theme-winter .price { color: var(--color-ink); }
+.theme-spring { border-top-color: #c6d6a6 !important; }
+.theme-spring .price { color: var(--color-ink); }
+.theme-summer { border-top-color: #e8d599 !important; }
+.theme-summer .price { color: var(--color-gold-deep); }
+.theme-autumn { border-top-color: #d4a472 !important; }
+.theme-autumn .price { color: var(--color-gold-deep); }
 
-.theme-winter-bg { background: linear-gradient(to bottom, #f0f9ff, var(--color-ivory)) !important; }
-.theme-spring-bg { background: linear-gradient(to bottom, #eafbf9, var(--color-ivory)) !important; }
-.theme-summer-bg { background: linear-gradient(to bottom, #fefce8, var(--color-ivory)) !important; }
-.theme-autumn-bg { background: linear-gradient(to bottom, #fff7ed, var(--color-ivory)) !important; }
+.theme-winter-bg { background: linear-gradient(to bottom, #eef3f6, var(--color-ivory)) !important; }
+.theme-spring-bg { background: linear-gradient(to bottom, #eef2e6, var(--color-ivory)) !important; }
+.theme-summer-bg { background: linear-gradient(to bottom, #faf2dc, var(--color-ivory)) !important; }
+.theme-autumn-bg { background: linear-gradient(to bottom, #f5e9d6, var(--color-ivory)) !important; }
 
-/* Карточки — со «штрихом» вверху и мягким переходом */
-.product-card { border-top-width: 6px; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .product-card.tilt { transition: transform 0.35s ease, box-shadow 0.5s ease; will-change: transform; }
 
 /* ============================================================
    Шапка
    ============================================================ */
 #site-header.header-scrolled > div {
-    background: rgba(251, 247, 239, 0.88);
-    box-shadow: 0 6px 30px -10px rgba(12, 20, 20, 0.18);
-    border-bottom-color: transparent;
+    background: rgba(250, 246, 236, 0.92);
+    box-shadow: 0 4px 28px -12px rgba(12, 16, 15, 0.16);
+    border-bottom-color: rgba(138, 111, 46, 0.18);
 }
 
 .nav-link {
     display: inline-flex;
     align-items: center;
     padding: 0.55rem 1.1rem;
-    border-radius: 999px;
-    color: #44403c;
+    border-radius: 0;
+    color: #3d3a30;
     font-weight: 500;
     font-size: 0.95rem;
-    transition: all 0.25s ease;
+    letter-spacing: 0.02em;
+    transition: color 0.25s ease;
     position: relative;
 }
-.nav-link::before {
+.nav-link::after {
     content: '';
     position: absolute;
-    inset: auto 50% -4px 50%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-tiffany), var(--color-gold));
-    border-radius: 999px;
-    transition: inset 0.3s ease;
+    left: 50%; right: 50%; bottom: -2px;
+    height: 1px;
+    background: var(--color-gold);
+    transition: left 0.3s ease, right 0.3s ease;
 }
-.nav-link:hover { color: var(--color-tiffany-dark); }
-.nav-link:hover::before { inset: auto 12% -4px 12%; }
+.nav-link:hover { color: var(--color-ink); }
+.nav-link:hover::after { left: 18%; right: 18%; }
 
 /* ============================================================
    Поиск
@@ -153,7 +155,7 @@ em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
 .search-panel {
     max-height: 0;
     opacity: 0;
-    transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+    transition: max-height 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
 }
 .search-panel.search-open { max-height: 220px; opacity: 1; }
 
@@ -166,30 +168,29 @@ em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
     gap: 0.5rem;
     padding: 0.6rem 1.15rem;
     border-radius: 999px;
-    background: #fff;
-    border: 1px solid #eadfce;
+    background: transparent;
+    border: 1px solid rgba(138, 111, 46, 0.25);
     color: #44403c;
     font-size: 0.875rem;
     font-weight: 500;
-    transition: all 0.25s ease;
+    letter-spacing: 0.01em;
+    transition: all 0.3s ease;
     white-space: nowrap;
     position: relative;
 }
 .chip:hover {
-    border-color: var(--color-tiffany);
-    color: var(--color-tiffany-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-soft);
+    border-color: var(--color-gold);
+    color: var(--color-gold-deep);
+    background: rgba(243, 231, 192, 0.45);
 }
 .chip-active {
     background: var(--color-ink);
     border-color: var(--color-gold);
     color: var(--color-gold-light);
-    box-shadow: var(--shadow-gold);
 }
 .chip-active:hover {
     background: var(--color-ink);
-    color: #fff;
+    color: var(--color-gold-soft);
 }
 
 /* ============================================================
@@ -199,30 +200,34 @@ em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    padding: 0.95rem 1.75rem;
+    gap: 0.65rem;
+    padding: 0.95rem 1.9rem;
     border-radius: 999px;
     color: var(--color-ink);
     font-weight: 700;
-    background: linear-gradient(135deg, #f7e8a8, var(--color-gold), #a4853b);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    background: linear-gradient(135deg, #e8d599 0%, var(--color-gold) 50%, #8a6f2e 100%);
     background-size: 200% 200%;
-    box-shadow: var(--shadow-gold), inset 0 1px 0 rgba(255,255,255,0.4);
-    transition: all 0.4s ease;
+    box-shadow: var(--shadow-gold);
+    transition: all 0.5s ease;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
 }
 .btn-gold::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.6) 50%, transparent 70%);
+    background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,0.45) 50%, transparent 65%);
     transform: translateX(-100%);
-    transition: transform 0.7s ease;
+    transition: transform 0.9s ease;
 }
 .btn-gold:hover {
     background-position: 100% 50%;
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 30px 70px -25px rgba(201, 169, 97, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 32px 70px -28px rgba(138, 111, 46, 0.7);
 }
 .btn-gold:hover::before { transform: translateX(100%); }
 
@@ -230,54 +235,59 @@ em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    padding: 0.95rem 1.75rem;
+    gap: 0.65rem;
+    padding: 0.95rem 1.9rem;
     border-radius: 999px;
-    color: var(--color-ivory);
+    color: var(--color-gold-light);
     font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
     background: var(--color-ink);
     border: 1px solid rgba(201,169,97,0.35);
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
 }
 .btn-ink:hover {
     background: #000;
     border-color: var(--color-gold);
+    color: var(--color-gold-soft);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-soft);
 }
 
 .btn-ghost {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    padding: 0.95rem 1.75rem;
+    gap: 0.65rem;
+    padding: 0.95rem 1.9rem;
     border-radius: 999px;
     color: var(--color-ink);
     font-weight: 600;
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(12,20,20,0.1);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    background: transparent;
+    border: 1px solid rgba(12,16,15,0.18);
     transition: all 0.3s ease;
 }
 .btn-ghost:hover {
-    background: #fff;
-    border-color: var(--color-tiffany);
-    color: var(--color-tiffany-dark);
-    transform: translateY(-2px);
+    border-color: var(--color-gold);
+    color: var(--color-gold-deep);
+    background: rgba(243, 231, 192, 0.4);
 }
 
 /* ============================================================
-   Декоративные элементы
+   Декоративные элементы — тонкие и редкие
    ============================================================ */
 
-/* Тонкая золотая разделительная линия */
+/* Золотая разделительная нить */
 .gold-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
     border: 0;
 }
-/* Орнаментальный разделитель с «ромбом» */
+
+/* Орнамент с ромбом */
 .ornament {
     display: flex;
     align-items: center;
@@ -293,63 +303,48 @@ em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
     background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
 }
 .ornament .diamond {
-    width: 8px; height: 8px;
+    width: 7px; height: 7px;
     background: var(--color-gold);
     transform: rotate(45deg);
-    box-shadow: 0 0 18px rgba(201,169,97,0.6);
 }
 
-/* Бегущая лента */
+/* Бегущая лента — медленнее и тише */
 .marquee {
     display: flex;
     overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 .marquee__track {
     display: flex;
     flex-shrink: 0;
     min-width: 100%;
     align-items: center;
-    gap: 3rem;
-    padding-right: 3rem;
+    gap: 3.5rem;
+    padding-right: 3.5rem;
     will-change: transform;
 }
 
-/* Свечение для значков */
+/* Точка-индикатор */
 .glow-dot {
     position: relative;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 999px;
-    background: var(--color-tiffany);
+    background: var(--color-gold);
 }
 .glow-dot::after {
     content: '';
     position: absolute;
     inset: -4px;
     border-radius: 999px;
-    background: var(--color-tiffany);
-    opacity: 0.5;
-    animation: pulse-ring 2.5s ease-out infinite;
+    background: var(--color-gold);
+    opacity: 0.35;
+    animation: pulse-ring 3s ease-out infinite;
 }
-
 @keyframes pulse-ring {
-    0%   { transform: scale(0.7); opacity: 0.5; }
-    100% { transform: scale(2);   opacity: 0;   }
-}
-
-/* «Звёздочки» */
-.sparkle {
-    position: absolute;
-    pointer-events: none;
-    color: var(--color-gold);
-    animation: sparkle 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 6px rgba(201,169,97,0.7));
-}
-@keyframes sparkle {
-    0%, 100% { opacity: 0; transform: scale(0.6) rotate(0deg); }
-    50%      { opacity: 1; transform: scale(1.05) rotate(45deg); }
+    0%   { transform: scale(0.7); opacity: 0.35; }
+    100% { transform: scale(2);   opacity: 0;    }
 }
 
 /* ============================================================
@@ -358,49 +353,52 @@ em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
 .reveal {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .reveal-in { opacity: 1; transform: translateY(0); }
 .reveal-in.accent-underline::after { transform: scaleX(1); }
-
-/* Каскад задержек для дочерних карточек */
-.reveal[data-delay="1"] { transition-delay: 0.05s; }
-.reveal[data-delay="2"] { transition-delay: 0.12s; }
-.reveal[data-delay="3"] { transition-delay: 0.2s; }
-.reveal[data-delay="4"] { transition-delay: 0.28s; }
+.reveal[data-delay="1"] { transition-delay: 0.06s; }
+.reveal[data-delay="2"] { transition-delay: 0.14s; }
+.reveal[data-delay="3"] { transition-delay: 0.22s; }
+.reveal[data-delay="4"] { transition-delay: 0.30s; }
 
 /* ============================================================
    Swiper
    ============================================================ */
 .swiper-button-next, .swiper-button-prev {
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
     color: var(--color-ink) !important;
     border: 1px solid var(--color-gold) !important;
     background: var(--color-ivory) !important;
 }
 .swiper-button-next::after, .swiper-button-prev::after {
-    font-size: 16px !important;
+    font-size: 14px !important;
     font-weight: 800;
 }
 .swiper-button-next:hover, .swiper-button-prev:hover {
     background: var(--color-ink) !important;
-    color: var(--color-gold) !important;
-    transform: scale(1.05);
+    color: var(--color-gold-light) !important;
+    transform: scale(1.04);
+    border-color: var(--color-gold) !important;
 }
-.swiper-pagination-bullet-active { background: var(--color-tiffany) !important; }
+.swiper-pagination-bullet-active { background: var(--color-gold) !important; }
 .swiper-slide { height: auto !important; }
 
 /* ============================================================
-   Цена и общее
+   Цена
    ============================================================ */
 .price {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     font-feature-settings: "tnum";
     font-family: "Cormorant Garamond", serif;
     font-weight: 600;
-    font-size: 1.45em;
+    font-size: 1.5em;
+    color: var(--color-ink);
 }
 
+/* ============================================================
+   Прочее
+   ============================================================ */
 select { background-image: none; }
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
@@ -410,11 +408,12 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
     height: 14px;
     width: 14px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2378716c' d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3E%3C/svg%3E") no-repeat center;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23a3956b' d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3E%3C/svg%3E") no-repeat center;
     cursor: pointer;
 }
 
-/* Меньше движения, если пользователь не любит анимации */
+::selection { background: var(--color-gold-soft); color: var(--color-ink); }
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.001s !important;
@@ -422,7 +421,6 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 }
 
-/* Печать */
 @media print {
     .swiper-button-next, .swiper-button-prev, #scroll-top, #site-header { display: none !important; }
 }
