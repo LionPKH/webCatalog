@@ -2,80 +2,155 @@
 
 {% block title %}DecorStudio · Art-ателье ручных композиций{% endblock %}
 
-{% block content %}
-<div class="py-2 space-y-28">
+{% block page_bg %}
+<!-- ========================
+     ФОН ВСЕЙ СТРАНИЦЫ — стек 3D-моделей вместо картинок.
+     При скролле каждая модель крутится (camera-orbit) и приближается (scale),
+     затем плавно сменяется следующей моделью.
+======================== -->
+<div id="page-bg" class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+    <!-- Тёплая «галерейная» подложка: ivory сверху, более тёмный cream-graphite снизу.
+         3D-объекты будут «парить» на этой подложке. -->
+    <div class="absolute inset-0" style="background:
+        radial-gradient(120% 100% at 25% 18%, rgba(255,247,220,0.96) 0%, rgba(241,232,210,0.55) 45%, rgba(28,22,16,0.65) 100%),
+        linear-gradient(180deg, #1c1814 0%, #2a2218 50%, #161210 100%);"></div>
 
-    <!-- ======================== HERO ======================== -->
-    <section class="relative w-full h-[640px] md:h-[720px] rounded-[2rem] overflow-hidden shadow-deep ring-1 ring-gold-500/25 flex items-center">
-        <!-- Слайдер -->
-        <div class="swiper hero-swiper absolute inset-0 z-0">
-            <div class="swiper-wrapper">
-                {% for banner in banners %}
-                <div class="swiper-slide">
-                    <img src="{{ banner.image.url }}" class="w-full h-full object-cover scale-105" alt="">
-                </div>
-                {% empty %}
-                <div class="swiper-slide bg-gradient-to-br from-cream via-gold-100 to-cream"></div>
-                {% endfor %}
+    <!-- Декоративные золотые пятна -->
+    <div class="absolute inset-0">
+        <div class="absolute -top-40 -left-40 w-[42rem] h-[42rem] rounded-full bg-gold-400/12 blur-3xl"></div>
+        <div class="absolute bottom-0 -right-40 w-[38rem] h-[38rem] rounded-full bg-gold-300/10 blur-3xl"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] rounded-full bg-gold-200/8 blur-3xl"></div>
+    </div>
+
+    <div id="page-bg-rotator" class="absolute inset-0" style="perspective: 1800px;">
+        {% if models3d_bg %}
+            {% for m in models3d_bg %}
+            <!-- Один слой = одна 3D-модель. Все лежат стэком на одном месте,
+                 видимость переключается через opacity на скролле. -->
+            <div class="page-bg-layer absolute inset-0 will-change-transform"
+                 data-index="{{ forloop.counter0 }}"
+                 data-kind="3d"
+                 style="opacity: {% if forloop.first %}1{% else %}0{% endif %}; transition: opacity 0.9s ease;">
+                <model-viewer
+                    src="{{ m.glb_file.url }}"
+                    alt="{{ m.name }}"
+                    {% if m.poster %}poster="{{ m.poster.url }}"{% endif %}
+                    camera-orbit="0deg 78deg 140%"
+                    field-of-view="auto"
+                    interaction-prompt="none"
+                    disable-zoom disable-pan disable-tap
+                    shadow-intensity="0"
+                    environment-image="neutral"
+                    exposure="{{ m.exposure }}"
+                    loading="lazy"
+                    reveal="auto"
+                    class="absolute inset-0 w-full h-full"
+                    style="background: transparent; --poster-color: transparent;">
+                </model-viewer>
             </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <!-- Fallback: если ни одной активной 3D-модели — крутим баннеры -->
+            {% for banner in banners %}
+            <div class="page-bg-layer absolute inset-0" data-index="{{ forloop.counter0 }}"
+                 data-kind="img"
+                 style="opacity: {% if forloop.first %}1{% else %}0{% endif %}; transition: opacity 1.8s ease;">
+                <img src="{{ banner.image.url }}" class="absolute inset-0 w-full h-full object-cover" alt="">
+            </div>
+            {% empty %}
+            <div class="absolute inset-0 bg-gradient-to-br from-ink via-graphite to-ink"></div>
+            {% endfor %}
+        {% endif %}
+    </div>
 
-        <!-- Тёмный слой для editorial-ощущения -->
-        <div class="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/20 z-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-ink/20 z-10"></div>
+    <!-- Лёгкая зернистость и сдержанная вуаль для контраста с текстом -->
+    <div class="absolute inset-0 hero-grain"></div>
+    <div class="absolute inset-0" style="background:
+        linear-gradient(180deg, rgba(12,16,15,0.30) 0%, rgba(12,16,15,0.10) 35%, rgba(12,16,15,0.10) 70%, rgba(12,16,15,0.45) 100%);"></div>
+</div>
+{% endblock %}
 
-        <!-- Тонкая золотая рамка -->
-        <div class="absolute inset-6 ring-1 ring-gold-300/25 rounded-[1.5rem] pointer-events-none z-10"></div>
+{% block content %}
+<!-- model-viewer (Google) — рендер .glb прямо в HTML, с прозрачным фоном -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<div class="py-2 space-y-28 relative">
+
+    <!-- ======================== HERO — текст поверх общего фона ======================== -->
+    <section data-bg-idx="0" class="hero relative h-[88vh] min-h-[600px] max-h-[920px] -mt-8 lg:-mt-12 flex items-center">
+
+        <!-- Локальный градиент для контраста под текстом hero -->
+        <div class="absolute inset-0 pointer-events-none" style="background:
+            linear-gradient(90deg, rgba(12,16,15,0.55) 0%, rgba(12,16,15,0.2) 55%, transparent 80%);"></div>
+        <div class="absolute inset-0 pointer-events-none" style="background:
+            linear-gradient(180deg, rgba(12,16,15,0.35) 0%, transparent 40%, transparent 70%, rgba(12,16,15,0.4) 100%);"></div>
+
+        <!-- Внутренняя золотая рамка -->
+        <div class="absolute inset-4 md:inset-8 ring-1 ring-gold-300/20 rounded-[1.5rem] pointer-events-none"></div>
 
         <!-- Контент -->
-        <div class="relative z-20 max-w-3xl px-8 md:px-16 animate-fade-up text-ivory">
-            <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-ink/40 backdrop-blur border border-gold-400/40 mb-8">
-                <span class="glow-dot"></span>
-                <span class="text-[11px] uppercase tracking-[0.4em] font-semibold text-gold-300">Весенняя коллекция · 2026</span>
-            </div>
+        <div class="relative z-10 w-full">
+            <div class="max-w-7xl mx-auto w-full px-8 md:px-16 lg:px-24">
+                <div class="max-w-3xl animate-fade-up text-ivory">
+                    <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-ink/50 backdrop-blur border border-gold-400/40 mb-8">
+                        <span class="glow-dot"></span>
+                        <span class="text-[11px] uppercase tracking-[0.4em] font-semibold text-gold-300">Весенняя коллекция</span>
+                    </div>
 
-            <h1 class="font-display text-5xl md:text-7xl lg:text-[5.4rem] leading-[1.02] mb-7 tracking-tight">
-                Art-ателье
-                <span class="block italic"><span class="text-shimmer">ручных композиций</span></span>
-                с душой природы
-            </h1>
+                    <h1 class="font-display text-5xl md:text-7xl lg:text-[5.6rem] leading-[1.02] mb-7 tracking-tight">
+                        Art-ателье
+                        <span class="block italic"><span class="text-shimmer">ручных композиций</span></span>
+                        с душой природы
+                    </h1>
 
-            <div class="w-24 h-px bg-gold-400 mb-7"></div>
+                    <div class="w-24 h-px bg-gold-400 mb-7"></div>
 
-            <p class="font-serif text-stone-200 text-xl md:text-2xl leading-relaxed mb-10 max-w-xl italic">
-                Каждое изделие — единственное в своём роде. Премиальные материалы, ручная работа, сдержанная роскошь.
-            </p>
+                    <p class="font-serif text-stone-200 text-xl md:text-2xl leading-relaxed mb-10 max-w-xl italic">
+                        Каждое изделие — единственное в своём роде. Премиальные материалы, ручная работа, сдержанная роскошь.
+                    </p>
 
-            <div class="flex flex-wrap items-center gap-3">
-                <a href="{% url 'product_list' %}" class="btn-gold">
-                    Смотреть каталог
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
-                <a href="#contact" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border border-gold-300/40 text-gold-100 hover:text-ivory hover:border-gold-300 transition text-[11px] uppercase tracking-[0.25em] font-semibold">
-                    Связаться
-                </a>
-            </div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="{% url 'product_list' %}" class="btn-gold">
+                            Смотреть каталог
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                        <a href="#contact" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border border-gold-300/40 text-gold-100 hover:text-ivory hover:border-gold-300 transition text-[11px] uppercase tracking-[0.25em] font-semibold">
+                            Связаться
+                        </a>
+                    </div>
 
-            <!-- Мини-статистика -->
-            <div class="mt-14 grid grid-cols-3 gap-6 max-w-md border-t border-gold-500/25 pt-6">
-                <div>
-                    <div class="font-display text-3xl text-shimmer font-bold">200+</div>
-                    <div class="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-1.5">композиций</div>
-                </div>
-                <div>
-                    <div class="font-display text-3xl text-shimmer font-bold">5</div>
-                    <div class="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-1.5">лет опыта</div>
-                </div>
-                <div>
-                    <div class="font-display text-3xl text-shimmer font-bold">100%</div>
-                    <div class="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-1.5">handmade</div>
+                    <!-- Мини-статистика -->
+                    <div class="mt-14 grid grid-cols-3 gap-6 max-w-md border-t border-gold-500/25 pt-6">
+                        <div>
+                            <div class="font-display text-3xl text-shimmer font-bold">200+</div>
+                            <div class="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-1.5">композиций</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-3xl text-shimmer font-bold">5</div>
+                            <div class="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-1.5">лет опыта</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-3xl text-shimmer font-bold">100%</div>
+                            <div class="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-1.5">handmade</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Скролл-индикатор -->
+        <a href="#after-hero" aria-label="Прокрутить вниз"
+           class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-gold-300 hover:text-gold-100 transition">
+            <span class="text-[10px] uppercase tracking-[0.4em] font-semibold">Прокрутить</span>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </a>
     </section>
+
+    <span id="after-hero" aria-hidden="true"></span>
 
     <!-- ======================== MARQUEE — спокойная золотая лента ======================== -->
     <section class="-mx-4 sm:-mx-6 lg:-mx-8">
@@ -111,7 +186,7 @@
 
     <!-- ======================== КАТЕГОРИИ ======================== -->
     {% if categories %}
-    <section>
+    <section data-bg-idx="1">
         <div class="text-center mb-14">
             <p class="text-[11px] uppercase tracking-[0.45em] text-gold-700 font-semibold mb-5">Коллекции</p>
             <h2 class="font-display text-5xl md:text-6xl font-bold text-ink">
@@ -126,8 +201,8 @@
                class="reveal group relative aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br
                       {% if cat.style_theme == 'winter' %}from-ivory via-cream to-gold-100
                       {% elif cat.style_theme == 'spring' %}from-cream via-gold-100 to-cream-warm
-                      {% elif cat.style_theme == 'summer' %}from-gold-100 via-gold-200/60 to-cream
-                      {% elif cat.style_theme == 'autumn' %}from-cream-warm via-gold-200/50 to-gold-100
+                      {% elif cat.style_theme == 'summer' %}from-gold-100 via-gold-200 to-cream-warm
+                      {% elif cat.style_theme == 'autumn' %}from-gold-200 via-gold-300 to-gold-100
                       {% else %}from-cream to-gold-100{% endif %}
                       shadow-soft hover:shadow-deep hover:-translate-y-2 transition-all duration-700 ring-1 ring-gold-500/25">
                 <div class="absolute inset-0 grid place-items-center text-8xl text-gold-700/30 group-hover:text-gold-700/50 group-hover:scale-110 transition-all duration-700">
@@ -152,7 +227,7 @@
     {% endif %}
 
     <!-- ======================== EDITORIAL — наш подход ======================== -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section data-bg-idx="2" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <!-- Изображение -->
         <div class="lg:col-span-5 relative">
             <div class="reveal aspect-[4/5] rounded-[1.75rem] overflow-hidden bg-gradient-to-br from-cream to-gold-200/40 shadow-deep ring-1 ring-gold-500/30 relative">
@@ -244,8 +319,8 @@
         </div>
     </section>
 
-    <!-- ======================== НАШИ РАБОТЫ ======================== -->
-    <section>
+        <!-- ======================== НАШИ РАБОТЫ ======================== -->
+    <section data-bg-idx="3">
         <div class="flex justify-between items-end mb-12 flex-wrap gap-6">
             <div>
                 <p class="text-[11px] uppercase tracking-[0.45em] text-gold-700 font-semibold mb-5">Каталог</p>
@@ -317,7 +392,7 @@
     </section>
 
     <!-- ======================== ЦЕННОСТИ ======================== -->
-    <section>
+    <section data-bg-idx="4">
         <div class="text-center mb-14">
             <p class="text-[11px] uppercase tracking-[0.45em] text-gold-700 font-semibold mb-5">Наши принципы</p>
             <h2 class="font-display text-5xl md:text-6xl font-bold text-ink">
@@ -383,4 +458,114 @@
     </section>
 
 </div>
+
+<script>
+(function () {
+    // ============================================================
+    // Page-wide 3D background:
+    //   - стек слоёв (.page-bg-layer), каждый = одна 3D-модель
+    //   - прокрутка делит страницу на N равных «сцен»
+    //   - внутри сцены модель ВРАЩАЕТСЯ (camera-orbit) и РАСТЁТ (scale)
+    //   - на стыке сцен предыдущий слой плавно угасает,
+    //     следующий — вступает (crossfade)
+    //   - работает и с одним слоем (N=1): один объект просто крутится
+    //   - картинка-fallback (data-kind="img") получает только crossfade+scale
+    // ============================================================
+    const rotator = document.getElementById('page-bg-rotator');
+    const layers  = Array.from(document.querySelectorAll('.page-bg-layer'));
+    if (!rotator || !layers.length) return;
+
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function getScrollTop() {
+        return Math.max(
+            window.pageYOffset || 0,
+            window.scrollY || 0,
+            document.documentElement ? document.documentElement.scrollTop : 0,
+            document.body ? document.body.scrollTop : 0
+        );
+    }
+
+    function getScrollPct() {
+        const y = getScrollTop();
+        const docEl = document.documentElement;
+        const docH = Math.max(1,
+            Math.max(docEl.scrollHeight, document.body.scrollHeight) - window.innerHeight
+        );
+        return Math.min(1, Math.max(0, y / docH));
+    }
+
+    let ticking = false;
+
+    function update() {
+        const t = getScrollPct();           // 0..1 — позиция по всей странице
+        const N = layers.length;
+        const stage = 1 / N;                // длина одной сцены
+        // Доля сцены, в которой работает crossfade (на каждом крае).
+        // 0.4 = 40% сцены до начала и после конца — достаточно мягкий переход.
+        const overlapNorm = N > 1 ? 0.5 : 0;
+
+        layers.forEach((layer, i) => {
+            const start = i * stage;
+            // local progress 0..1 ВНУТРИ сцены (может быть <0 или >1 за её пределами)
+            const localT = (t - start) / stage;
+
+            // ------- 1. Opacity (crossfade) -------
+            let opacity;
+            if (N === 1) {
+                opacity = 1;
+            } else if (localT < -overlapNorm) {
+                opacity = 0;
+            } else if (localT < 0) {
+                opacity = (localT + overlapNorm) / overlapNorm;     // 0 → 1
+            } else if (localT <= 1) {
+                opacity = 1;
+            } else if (localT < 1 + overlapNorm) {
+                opacity = 1 - (localT - 1) / overlapNorm;            // 1 → 0
+            } else {
+                opacity = 0;
+            }
+            // Сглаживание (easeInOut)
+            opacity = opacity * opacity * (3 - 2 * opacity);
+            layer.style.opacity = opacity.toFixed(3);
+
+            // ------- 2. Камера и масштаб (анимация только когда слой виден) -------
+            // Используем «обрезанный» прогресс, чтобы не давать камере улетать вне сцены
+            const ct = Math.min(1, Math.max(0, localT));
+
+            // Лёгкий «вход» (модель сначала чуть дальше и повёрнута левее),
+            // в конце сцены — приблизилась и повернулась правее.
+            //   theta:   -25° → +25°
+            //   phi:     ~78° (тилт — фиксирован, чтобы объект всегда был в кадре)
+            //   radius:  150% → 75%  (camera-orbit радиус в %)
+            //   scale:   1.00 → 1.18 (CSS-зум поверх 3D)
+            const theta  = -25 + ct * 50;
+            const phi    = 78;
+            const radius = 150 - ct * 75;
+            const scale  = 1 + ct * 0.18;
+
+            if (!reduce && opacity > 0.02) {
+                const mv = layer.querySelector('model-viewer');
+                if (mv) {
+                    mv.setAttribute(
+                        'camera-orbit',
+                        theta.toFixed(1) + 'deg ' + phi + 'deg ' + Math.max(50, radius).toFixed(0) + '%'
+                    );
+                }
+            }
+            layer.style.transform = 'scale(' + scale.toFixed(3) + ')';
+        });
+
+        ticking = false;
+    }
+
+    update();
+    const onScroll = () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', () => requestAnimationFrame(update), { passive: true });
+})();
+</script>
 {% endblock %}

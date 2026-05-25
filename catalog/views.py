@@ -9,7 +9,7 @@ from django.db.models import Q, Min, Max
 from django.core.paginator import Paginator
 import requests
 
-from .models import Product, Category, Banner
+from .models import Product, Category, Banner, Model3D
 
 
 # --- Конфигурация сортировок (используется и во вьюхе, и в шаблоне) ---
@@ -66,11 +66,17 @@ def index(request):
     products = Product.objects.all().order_by('-is_popular', '-id')[:12]
     banners = Banner.objects.filter(is_active=True)
     categories = Category.objects.all()
+    # Все активные 3D-модели — будут стэком на фоне главной
+    models3d_bg = list(
+        Model3D.objects.filter(is_active=True)
+        .order_by('order', '-created_at')
+    )
 
     context = {
         'products': products,
         'banners': banners,
         'categories': categories,
+        'models3d_bg': models3d_bg,
     }
     return render(request, 'catalog/index.html', context)
 

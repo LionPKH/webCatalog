@@ -348,6 +348,42 @@ em.accent, .accent { font-style: italic; color: var(--color-gold-dark); }
 }
 
 /* ============================================================
+   Hero — кинематографический фон
+   ============================================================ */
+
+/* Ken Burns: постоянное медленное движение/зум на фоне */
+.hero-kenburns {
+    transform-origin: center;
+    animation: ken-burns 26s ease-in-out infinite;
+    will-change: transform;
+}
+@keyframes ken-burns {
+    0%   { transform: scale(1.08) translate(0%, 0%); }
+    50%  { transform: scale(1.16) translate(-1.5%, -1%); }
+    100% { transform: scale(1.08) translate(0%, 0%); }
+}
+
+/* Контейнеры с parallax — подсказка браузеру */
+[data-parallax-y], [data-parallax-scale] { will-change: transform; }
+
+/* Скролл-индикатор внизу hero */
+.scroll-indicator {
+    animation: scroll-pulse 2.4s ease-in-out infinite;
+}
+@keyframes scroll-pulse {
+    0%, 100% { transform: translateY(0); opacity: 0.55; }
+    50%      { transform: translateY(8px); opacity: 1; }
+}
+
+/* Лёгкая зернистость поверх hero для «киношности» */
+.hero-grain {
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+}
+
+/* ============================================================
    Появление при прокрутке
    ============================================================ */
 .reveal {

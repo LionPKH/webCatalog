@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Banner
+from .models import Category, Product, Banner, Model3D
 
 admin.site.register(Category)
 admin.site.register(Banner)
@@ -25,3 +25,23 @@ class ProductAdmin(admin.ModelAdmin):
     # 5. ДОБАВЛЯЕМ ТОЛЬКО ЭТО: подключение JS-файла для кнопки AI
     class Media:
         js = ('catalog/js/ai_button.js',)
+
+
+@admin.register(Model3D)
+class Model3DAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_active', 'order', 'auto_rotate', 'created_at')
+    list_filter = ('is_active', 'auto_rotate')
+    list_editable = ('is_active', 'order')
+    search_fields = ('name', 'headline', 'description')
+    fieldsets = (
+        ('Основное', {
+            'fields': ('name', 'headline', 'description', 'glb_file', 'poster'),
+        }),
+        ('Параметры показа', {
+            'fields': ('auto_rotate', 'rotation_speed', 'camera_orbit', 'exposure'),
+            'classes': ('collapse',),
+        }),
+        ('Управление', {
+            'fields': ('is_active', 'order'),
+        }),
+    )
